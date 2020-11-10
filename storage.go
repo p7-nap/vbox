@@ -27,7 +27,7 @@ func (vc *StorageAttach) exec(args ...string) ([]byte, error) {
 	return vc.c.exec("vboxmanage", args...)
 }
 
-func (vc *ModifyService) (name string, options StorageOptions) error {
+func (vc *StorageService) (name string, options StorageOptions) error {
 	args := []string{"storagectl", name}
 	args = append(args, options.slice()...)
 	_, err := vc.exec(args...)
