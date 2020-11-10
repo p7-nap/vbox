@@ -9,6 +9,7 @@ import (
 
 type Client struct {
 	Create   *CreateService
+	Medium   *MediumService
 	Modify   *ModifyService
 	execFunc ExecFunc
 	flags    []string
