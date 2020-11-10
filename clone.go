@@ -10,10 +10,11 @@ func (v *CloneService) exec(args ...string) ([]byte, error) {
 	return v.v.exec("vboxmanage", args...)
 }
 
+//CloneVM clones <vmname> with given <options>,...
 func (v *CloneService) CloneVM(vmname string, options CloneOptions) error {
 	args := []string{"clonevm", vmname}
-	options, err := options.slice()
-	args = append(args, options...)
+	cloneOptions, err := options.slice()
+	args = append(args, cloneOptions...)
 	_, err = v.exec(args...)
 	return err
 }
