@@ -10,8 +10,8 @@ func (v *CloneService) exec(args ...string) ([]byte, error) {
 	return v.v.exec("vboxmanage", args...)
 }
 
-func (v *CloneService) CloneVM(options CloneOptions) error {
-	args := []string{"clonevm"}
+func (v *CloneService) CloneVM(vmname string, options CloneOptions) error {
+	args := []string{"clonevm", vmname}
 	options, err := options.slice()
 	args = append(args, options...)
 	_, err = v.exec(args...)
@@ -19,12 +19,11 @@ func (v *CloneService) CloneVM(options CloneOptions) error {
 }
 
 type CloneOptions struct {
-	Vmname     string
 	Basefolder string
 	Groups     string
-	Mode       mode
+	Mode       cloneMode
 	Name       string
-	Options    options
+	Options    cloneOptions
 	Register   bool
 	Snapshot   string
 	UUID       string
@@ -32,9 +31,6 @@ type CloneOptions struct {
 
 func (c CloneOptions) slice() ([]string, error) {
 	var s []string
-	if c.Vmname != "" {
-		s = append(s, c.Name)
-	}
 	if c.Basefolder != "" {
 		s = append(s, fmt.Sprintf("--basefolder=%s", c.Basefolder))
 	}
@@ -65,20 +61,20 @@ func (c CloneOptions) slice() ([]string, error) {
 	return s, nil
 }
 
-type mode string
+type cloneMode string
 
 const (
-	Machine            mode = "machine"
-	Machineandchildren mode = "machineandchildren"
-	All                mode = "all"
+	Machine            cloneMode = "machine"
+	Machineandchildren cloneMode = "machineandchildren"
+	All                cloneMode = "all"
 )
 
-type options string
+type cloneOptions string
 
 const (
-	Link          options = "Link"
-	KeepAllMACs   options = "KeepAllMACs"
-	KeepNATMACs   options = "KeepNATMACs"
-	KeepDiskNames options = "KeepDiskNames"
-	KeepHwUUIDs   options = "KeepDiskNames"
+	Link          cloneOptions = "Link"
+	KeepAllMACs   cloneOptions = "KeepAllMACs"
+	KeepNATMACs   cloneOptions = "KeepNATMACs"
+	KeepDiskNames cloneOptions = "KeepDiskNames"
+	KeepHwUUIDs   cloneOptions = "KeepDiskNames"
 )
