@@ -73,6 +73,11 @@ func New() *Client {
 	}
 	c.Modify = ms
 
+	cls := &CloneService{
+		v: c,
+	}
+	c.Clone = cls
+
 	ss := &StartService{
 		v: c,
 	}
