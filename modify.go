@@ -10,7 +10,7 @@ func (vc *ModifyService) exec(args ...string) ([]byte, error) {
 	return vc.v.exec("vboxmanage", args...)
 }
 
-func (vc *ModifyService) ModigfyVM(name string, options ModifyOptions) error {
+func (vc *ModifyService) ModifyVM(name string, options ModifyOptions) error {
 	args := []string{"modifyvm"}
 	args = append(args, options.slice()...)
 	_, err := vc.exec(args...)
@@ -27,8 +27,8 @@ type ModifyOptions struct {
 	// VRAM sets the amount of RAM for the grapicscard
 	VRAM   uint
 	OSType ostype
+	Nics   []Nic
 	bootOptions
-    networkOptions
 }
 
 type bootOptions struct {
@@ -55,6 +55,17 @@ func (c ModifyOptions) slice() []string {
 	if c.CPUs != 0 {
 		s = append(s, fmt.Sprintf("--cpus=%d", c.CPUs))
 	}
+	for i, n := range c.Nics {
+		if n.Mode != "" {
+			s = append(s, fmt.Sprintf("--nic%d=%s", i+1, n.Mode))
+		}
+		if n.Mode == Brigded && n.Iface != "" {
+			s = append(s, fmt.Sprintf("--brigdeadapter%d=%s", i+1, n.Iface))
+		}
+		if n.Mode == Brigded && n.Promisc != "" {
+			s = append(s, fmt.Sprintf("--nicpromisc%d=%s", i+1, n.Promisc))
+		}
+	}
 
 	return s
 }
@@ -69,6 +80,24 @@ const (
 	Net    bootType = "net"
 )
 
-type networkOptions struct{
-    NICs []
+type Nic struct {
+	Mode    nicMode
+	Iface   string
+	Promisc promiscMode
 }
+type nicMode string
+
+const (
+	NONE    nicMode = "none"
+	NULL    nicMode = "null"
+	NAT     nicMode = "nat"
+	Brigded nicMode = "bridged"
+)
+
+type promiscMode string
+
+const (
+	DENY     promiscMode = "deny"
+	AllowVM  promiscMode = "allow-vms"
+	AllowAll promiscMode = "allow-all"
+)
