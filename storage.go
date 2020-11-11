@@ -31,7 +31,7 @@ func (vc *StorageControl) exec(args ...string) ([]byte, error) {
 //ControlStorage takes vmname/uuid and storageoptions and creates a storage controller with given options
 func (vc *StorageControl) ControlStorage(name string, options StoragectlOptions) error {
 	args := []string{"storagectl", name}
-	args = append(args, options.slice()...)
+	args, _ = append(args, options.slice()...)
 	_, err := vc.exec(args...)
 	return err
 }
