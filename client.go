@@ -10,6 +10,7 @@ import (
 type Client struct {
 	Create   *CreateService
 	Modify   *ModifyService
+	Clone    *CloneService
 	execFunc ExecFunc
 	flags    []string
 	sudo     bool
