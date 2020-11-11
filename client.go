@@ -11,6 +11,7 @@ type Client struct {
 	Create   *CreateService
 	Modify   *ModifyService
 	Start    *StartService
+	Clone    *CloneService
 	execFunc ExecFunc
 	flags    []string
 	sudo     bool
