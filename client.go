@@ -10,6 +10,7 @@ import (
 type Client struct {
 	Create   *CreateService
 	Modify   *ModifyService
+	Start    *StartService
 	Clone    *CloneService
 	execFunc ExecFunc
 	flags    []string
@@ -72,6 +73,15 @@ func New() *Client {
 	}
 	c.Modify = ms
 
+	cls := &CloneService{
+		v: c,
+	}
+	c.Clone = cls
+
+	ss := &StartService{
+		v: c,
+	}
+	c.Start = ss
 	return c
 }
 
