@@ -72,6 +72,20 @@ func New() *Client {
 	}
 	c.Modify = ms
 
+	mes := &MediumService{
+		v: c,
+	}
+	mes.Create = &MediumCreate{
+		v: c,
+	}
+	mes.Modify = &MediumModify{
+		v: c,
+	}
+	mes.Clone = &MediumClone{
+		v: c,
+	}
+	c.Medium = mes
+
 	return c
 }
 
