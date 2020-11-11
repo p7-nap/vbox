@@ -34,7 +34,7 @@ type startType string
 
 const (
 	GUI      startType = "gui"
-	SDL      StartType = "sdl"
+	SDL      startType = "sdl"
 	Headless startType = "headless"
 	Seperate startType = "separate"
 )

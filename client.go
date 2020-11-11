@@ -72,6 +72,10 @@ func New() *Client {
 	}
 	c.Modify = ms
 
+	ss := &StartService{
+		v: c,
+	}
+	c.Start = ss
 	return c
 }
 
