@@ -31,9 +31,9 @@ func TestCloneOptions_slice(t *testing.T) {
 			i: CloneOptions{
 				Basefolder: ".",
 				Groups:     "group",
-				Mode:       "machine",
+				Mode:       Machine,
 				Name:       "newVM",
-				Options:    "Link, KeepAllMACs, KeepNATMACs, KeepDiskNames, KeepDiskNames",
+				Options:    []cloneOption{Link, KeepAllMACs, KeepNATMACs, KeepDiskNames, KeepHwUUIDs},
 				Register:   true,
 				Snapshot:   "vmSnap",
 				UUID:       "UUIDnew",
@@ -65,9 +65,6 @@ func TestCloneOptions_slice(t *testing.T) {
 			i: CloneOptions{
 				Mode:     "machineandchildren",
 				Register: true,
-			},
-			out: []string{
-				"--mode=machineandchildren",
 			},
 			err: fmt.Errorf("machineandchildren mode parameter only available with --snapshot"),
 		},

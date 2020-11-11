@@ -1,6 +1,8 @@
 package vbox
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type CloneService struct {
 	v *Client
@@ -24,10 +26,11 @@ type CloneOptions struct {
 	Groups     string
 	Mode       cloneMode
 	Name       string
-	Options    cloneOptions
-	Register   bool
-	Snapshot   string
-	UUID       string
+	//add options as []cloneOptions{cloneoption1, cloneoption2,..."
+	Options  []cloneOption
+	Register bool
+	Snapshot string
+	UUID     string
 }
 
 func (c CloneOptions) slice() ([]string, error) {
@@ -47,8 +50,8 @@ func (c CloneOptions) slice() ([]string, error) {
 	if c.Name != "" {
 		s = append(s, fmt.Sprintf("--name=%s", c.Name))
 	}
-	if c.Options != "" {
-		s = append(s, fmt.Sprintf("--options=%s", c.Options))
+	if c.Options != nil {
+		s = append(s, fmt.Sprintf("--options=%s", join(c.Options, ", ")))
 	}
 	if c.Register {
 		s = append(s, "--register")
@@ -70,12 +73,20 @@ const (
 	All                cloneMode = "all"
 )
 
-type cloneOptions string
+type cloneOption string
 
 const (
-	Link          cloneOptions = "Link"
-	KeepAllMACs   cloneOptions = "KeepAllMACs"
-	KeepNATMACs   cloneOptions = "KeepNATMACs"
-	KeepDiskNames cloneOptions = "KeepDiskNames"
-	KeepHwUUIDs   cloneOptions = "KeepDiskNames"
+	Link          cloneOption = "Link"
+	KeepAllMACs   cloneOption = "KeepAllMACs"
+	KeepNATMACs   cloneOption = "KeepNATMACs"
+	KeepDiskNames cloneOption = "KeepDiskNames"
+	KeepHwUUIDs   cloneOption = "KeepDiskNames"
 )
+
+func join(options []cloneOption, separator string) string {
+	optionstring := string(options[0])
+	for _, option := range options[1:] {
+		optionstring = fmt.Sprintf("%s%s%s", optionstring, separator, option)
+	}
+	return optionstring
+}
