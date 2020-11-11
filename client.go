@@ -11,6 +11,8 @@ type Client struct {
 	Create   *CreateService
 	Medium   *MediumService
 	Modify   *ModifyService
+	Start    *StartService
+	Clone    *CloneService
 	execFunc ExecFunc
 	flags    []string
 	sudo     bool
@@ -71,7 +73,7 @@ func New() *Client {
 		v: c,
 	}
 	c.Modify = ms
-
+  
 	mes := &MediumService{
 		v: c,
 	}
@@ -85,6 +87,15 @@ func New() *Client {
 		v: c,
 	}
 	c.Medium = mes
+	cls := &CloneService{
+		v: c,
+	}
+	c.Clone = cls
+
+	ss := &StartService{
+		v: c,
+	}
+	c.Start = ss
 
 	return c
 }
