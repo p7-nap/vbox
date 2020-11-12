@@ -21,7 +21,7 @@ func TestImportOptions_slice(t *testing.T) {
 				Cloudinstanceid: "cloudinstanceid",
 				Cloudbucket:     "cloudbucket",
 				Vsys:            "0",
-				Ostype:          Linux,
+				OSType:          Linux,
 				Vmname:          "vmnameVsys",
 				Group:           "/",
 				Settingsfile:    "basefolder/Settingsfile",
@@ -56,7 +56,7 @@ func TestImportOptions_slice(t *testing.T) {
 			desc: "machineandchildren mode with snapshot",
 			i: ImportOptions{
 				Option: Keepallmacs,
-				Ostype: Linux,
+				OSType: Linux,
 			},
 			out: []string{
 				"--options=keepallmacs",

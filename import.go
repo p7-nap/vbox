@@ -32,7 +32,7 @@ type ImportOptions struct {
 	//These options all have a default and can be left out
 	//if Vsys is not set vsys options are ignored
 	Vsys   string
-	Ostype ostype
+	OSType ostype
 	//name set with vsys, enable vsys if using this
 	Vmname string
 	Group  string
@@ -75,8 +75,8 @@ func (o ImportOptions) slice() []string {
 	} else {
 		return s
 	}
-	if o.Ostype != "" {
-		s = append(s, fmt.Sprintf("--ostype=%s", o.Ostype))
+	if o.OSType != "" {
+		s = append(s, fmt.Sprintf("--ostype=%s", o.OSType))
 	}
 	if o.Vmname != "" {
 		s = append(s, fmt.Sprintf("--vmname=%s", o.Vmname))
