@@ -11,6 +11,7 @@ type Client struct {
 	Create   *CreateService
 	Medium   *MediumService
 	Modify   *ModifyService
+	Storage  *StorageService
 	Start    *StartService
 	Clone    *CloneService
 	Import   *ImportService
@@ -74,7 +75,7 @@ func New() *Client {
 		v: c,
 	}
 	c.Modify = ms
-  
+
 	mes := &MediumService{
 		v: c,
 	}
@@ -92,6 +93,16 @@ func New() *Client {
 		v: c,
 	}
 	c.Clone = cls
+	stor := &StorageService{
+		c: c,
+	}
+	stor.Control = &StorageControl{
+		c: c,
+	}
+	stor.Attach = &StorageAttach{
+		c: c,
+	}
+	c.Storage = stor
 
 	ss := &StartService{
 		v: c,
