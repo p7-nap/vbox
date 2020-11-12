@@ -149,10 +149,10 @@ func (c StorageattachOptions) slice() []string {
 		s = append(s, fmt.Sprintf("--storagectl=%s", c.SctlName))
 	}
 	//default value of port and device is 0 so doesn't matter if set or not.
-	if c.Port != 0 {
+	if c.Port >= 0 {
 		s = append(s, fmt.Sprintf("--port=%d", c.Port))
 	}
-	if c.Device != 0 {
+	if c.Device >= 0 {
 		s = append(s, fmt.Sprintf("--device=%d", c.Device))
 	}
 	if c.Type != "" {

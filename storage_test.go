@@ -180,6 +180,8 @@ func TestStorageattachOptions_slice(t *testing.T) {
 			},
 			out: []string{
 				"--storagectl=SATA Controller",
+				"--port=0",
+				"--device=0",
 				"--type=fdd",
 				"--medium=/path/file.vdi",
 			},
