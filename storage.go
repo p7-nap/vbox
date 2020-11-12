@@ -14,6 +14,7 @@ var (
 type StorageService struct {
 	Control *StorageControl
 	Attach  *StorageAttach
+	c       *Client
 }
 
 //StorageControl struct with entry c of type Client
@@ -147,10 +148,11 @@ func (c StorageattachOptions) slice() []string {
 	if c.SctlName != "" {
 		s = append(s, fmt.Sprintf("--storagectl=%s", c.SctlName))
 	}
-	if c.Port >= 0 {
+	//default value of port and device is 0 so doesn't matter if set or not.
+	if c.Port != 0 {
 		s = append(s, fmt.Sprintf("--port=%d", c.Port))
 	}
-	if c.Device >= 0 {
+	if c.Device != 0 {
 		s = append(s, fmt.Sprintf("--device=%d", c.Device))
 	}
 	if c.Type != "" {
