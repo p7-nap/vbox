@@ -9,7 +9,9 @@ import (
 
 type Client struct {
 	Create   *CreateService
+	Medium   *MediumService
 	Modify   *ModifyService
+	Start    *StartService
 	Clone    *CloneService
 	Import   *ImportService
 	execFunc ExecFunc
@@ -72,6 +74,29 @@ func New() *Client {
 		v: c,
 	}
 	c.Modify = ms
+  
+	mes := &MediumService{
+		v: c,
+	}
+	mes.Create = &MediumCreate{
+		v: c,
+	}
+	mes.Modify = &MediumModify{
+		v: c,
+	}
+	mes.Clone = &MediumClone{
+		v: c,
+	}
+	c.Medium = mes
+	cls := &CloneService{
+		v: c,
+	}
+	c.Clone = cls
+
+	ss := &StartService{
+		v: c,
+	}
+	c.Start = ss
 
 	is := &ImportService{
 		v: c,
