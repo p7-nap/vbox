@@ -10,7 +10,7 @@ import (
 type Client struct {
 	Create   *CreateService
 	Modify   *ModifyService
-	Storage  *StorageSevice
+	Storage  *StorageService
 	Start    *StartService
 	Clone    *CloneService
 	execFunc ExecFunc

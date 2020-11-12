@@ -6,10 +6,12 @@ import (
 )
 
 var (
-	ErrNoName = errors.New("Storage name must be diffined.")
+	//ErrNoName given if no storage controller name has been given
+	ErrNoName = errors.New("Storage name must be diffined")
 )
 
-type StorageSevice struct {
+//StorageService struct with entry Control and Attach of types StorageControl and StorageAttach
+type StorageService struct {
 	Control *StorageControl
 	Attach  *StorageAttach
 }
@@ -143,12 +145,12 @@ func (c StorageattachOptions) slice() []string {
 
 	var s []string
 	if c.SctlName != "" {
-		s = append(s, fmt.Sprintf("--storagecrl=%s", c.SctlName))
+		s = append(s, fmt.Sprintf("--storagectl=%s", c.SctlName))
 	}
-	if c.Port != 0 {
+	if c.Port >= 0 {
 		s = append(s, fmt.Sprintf("--port=%d", c.Port))
 	}
-	if c.Device != 0 {
+	if c.Device >= 0 {
 		s = append(s, fmt.Sprintf("--device=%d", c.Device))
 	}
 	if c.Type != "" {
