@@ -6,19 +6,6 @@ import (
 	"testing"
 )
 
-// func TestCloneVMOK(t *testing.T) {
-// 	options := CloneOptions{
-// 		Basefolder: ".",
-// 		Groups:     "group",
-// 		Mode:       "machine",
-// 		Name:       "newVM",
-// 		Options:    "Link, KeepAllMACs, KeepNATMACs, KeepDiskNames, KeepDiskNames",
-// 		Register:   true,
-// 		Snapshot:   "VmSnap",
-// 		UUID:       "UUIDnew",
-// 	}
-// }
-
 func TestCloneOptions_slice(t *testing.T) {
 	var tests = []struct {
 		desc string

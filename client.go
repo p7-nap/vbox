@@ -13,6 +13,7 @@ type Client struct {
 	Modify   *ModifyService
 	Start    *StartService
 	Clone    *CloneService
+	Import   *ImportService
 	execFunc ExecFunc
 	flags    []string
 	sudo     bool
@@ -96,6 +97,11 @@ func New() *Client {
 		v: c,
 	}
 	c.Start = ss
+
+	is := &ImportService{
+		v: c,
+	}
+	c.Import = is
 
 	return c
 }
