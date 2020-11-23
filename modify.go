@@ -11,7 +11,7 @@ func (vc *ModifyService) exec(args ...string) ([]byte, error) {
 }
 
 func (vc *ModifyService) ModifyVM(name string, options ModifyOptions) error {
-	args := []string{"modifyvm"}
+	args := []string{"modifyvm", name}
 	args = append(args, options.slice()...)
 	_, err := vc.exec(args...)
 	return err
