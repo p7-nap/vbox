@@ -59,10 +59,10 @@ func (c ModifyOptions) slice() []string {
 		if n.Mode != "" {
 			s = append(s, fmt.Sprintf("--nic%d=%s", i+1, n.Mode))
 		}
-		if n.Mode == Brigded && n.Iface != "" {
-			s = append(s, fmt.Sprintf("--brigdeadapter%d=%s", i+1, n.Iface))
+		if n.Mode == Bridged && n.Iface != "" {
+			s = append(s, fmt.Sprintf("--bridgeadapter%d=%s", i+1, n.Iface))
 		}
-		if n.Mode == Brigded && n.Promisc != "" {
+		if n.Mode == Bridged && n.Promisc != "" {
 			s = append(s, fmt.Sprintf("--nicpromisc%d=%s", i+1, n.Promisc))
 		}
 	}
@@ -91,7 +91,7 @@ const (
 	NONE    nicMode = "none"
 	NULL    nicMode = "null"
 	NAT     nicMode = "nat"
-	Brigded nicMode = "bridged"
+	Bridged nicMode = "bridged"
 )
 
 type promiscMode string

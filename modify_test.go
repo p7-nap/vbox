@@ -63,23 +63,23 @@ func TestModifyOptions_slice(t *testing.T) {
 			desc: "1 NIC",
 			i: ModifyOptions{
 				Nics: []Nic{
-					Nic{Mode: Brigded, Iface: "eth0"}},
+					Nic{Mode: Bridged, Iface: "eth0"}},
 			},
 			out: []string{
 				"--nic1=bridged",
-				"--brigdeadapter1=eth0",
+				"--bridgeadapter1=eth0",
 			},
 		},
 		{
 			desc: "2 NIC",
 			i: ModifyOptions{
 				Nics: []Nic{
-					Nic{Mode: Brigded, Iface: "eth0"},
+					Nic{Mode: Bridged, Iface: "eth0"},
 					Nic{Mode: NAT, Iface: "eth0"}},
 			},
 			out: []string{
 				"--nic1=bridged",
-				"--brigdeadapter1=eth0",
+				"--bridgeadapter1=eth0",
 				"--nic2=nat",
 			},
 		},
@@ -92,7 +92,7 @@ func TestModifyOptions_slice(t *testing.T) {
 				VRAM:   128,
 				OSType: Linux64,
 				Nics: []Nic{
-					Nic{Mode: Brigded, Iface: "eth0", Promisc: AllowAll},
+					Nic{Mode: Bridged, Iface: "eth0", Promisc: AllowAll},
 					Nic{Mode: NAT, Iface: "eth0"}},
 			},
 			out: []string{
@@ -102,7 +102,7 @@ func TestModifyOptions_slice(t *testing.T) {
 				"--vram=128",
 				"--cpus=2",
 				"--nic1=bridged",
-				"--brigdeadapter1=eth0",
+				"--bridgeadapter1=eth0",
 				"--nicpromisc1=allow-all",
 				"--nic2=nat",
 			},
