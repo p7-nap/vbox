@@ -71,7 +71,7 @@ func (o ImportOptions) slice() []string {
 	//more options / vsys options
 	//if Vsys is not set vsys options are ignored
 	if o.Vsys != "" {
-		s = append(s, fmt.Sprintf("--vsys %s", o.Vsys))
+		s = append(s, fmt.Sprintf("--vsys=%s", o.Vsys))
 	} else {
 		return s
 	}
