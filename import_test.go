@@ -37,7 +37,7 @@ func TestImportOptions_slice(t *testing.T) {
 				"--cloudprofile=cloudprofile",
 				"--cloudinstanceid=cloudinstanceid",
 				"--cloudbucket=cloudbucket",
-				"--vsys 0",
+				"--vsys=0",
 				"--ostype=linux",
 				"--vmname=vmnameVsys",
 				"--group=/",
