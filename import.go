@@ -24,9 +24,9 @@ type ImportOptions struct {
 	Option          importOption
 	Name            string
 	Cloud           bool
-	Cloudprofile    string
-	Cloudinstanceid string
-	Cloudbucket     string
+	CloudproFile    string
+	CloudInstanceID string
+	CloudBucket     string
 	//additional options depend on ovf file
 	//Display options with "VBoxManage import <filepath> -n"
 	//These options all have a default and can be left out
@@ -34,12 +34,12 @@ type ImportOptions struct {
 	Vsys   string
 	OSType ostype
 	//name set with vsys, enable vsys if using this
-	Vmname string
+	VMname string
 	Group  string
 	//path to .vbox file
 	// default: <basefolder path> + <vmname> + <vmname>.vbox)
-	Settingsfile string
-	Basefolder   string
+	SettingsFile string
+	BaseFolder   string
 	//number of cpus
 	CPUs string
 	//memory in MBs
