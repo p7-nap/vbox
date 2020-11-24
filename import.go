@@ -24,9 +24,9 @@ type ImportOptions struct {
 	Option          importOption
 	Name            string
 	Cloud           bool
-	Cloudprofile    string
-	Cloudinstanceid string
-	Cloudbucket     string
+	CloudProfile    string
+	CloudInstanceID string
+	CloudBucket     string
 	//additional options depend on ovf file
 	//Display options with "VBoxManage import <filepath> -n"
 	//These options all have a default and can be left out
@@ -34,12 +34,12 @@ type ImportOptions struct {
 	Vsys   string
 	OSType ostype
 	//name set with vsys, enable vsys if using this
-	Vmname string
+	VMname string
 	Group  string
 	//path to .vbox file
 	// default: <basefolder path> + <vmname> + <vmname>.vbox)
-	Settingsfile string
-	Basefolder   string
+	SettingsFile string
+	BaseFolder   string
 	//number of cpus
 	CPUs string
 	//memory in MBs
@@ -59,36 +59,36 @@ func (o ImportOptions) slice() []string {
 	if o.Cloud {
 		s = append(s, fmt.Sprintf("--cloud"))
 	}
-	if o.Cloudprofile != "" {
-		s = append(s, fmt.Sprintf("--cloudprofile=%s", o.Cloudprofile))
+	if o.CloudProfile != "" {
+		s = append(s, fmt.Sprintf("--cloudprofile=%s", o.CloudProfile))
 	}
-	if o.Cloudinstanceid != "" {
-		s = append(s, fmt.Sprintf("--cloudinstanceid=%s", o.Cloudinstanceid))
+	if o.CloudInstanceID != "" {
+		s = append(s, fmt.Sprintf("--cloudinstanceid=%s", o.CloudInstanceID))
 	}
-	if o.Cloudbucket != "" {
-		s = append(s, fmt.Sprintf("--cloudbucket=%s", o.Cloudbucket))
+	if o.CloudBucket != "" {
+		s = append(s, fmt.Sprintf("--cloudbucket=%s", o.CloudBucket))
 	}
 	//more options / vsys options
 	//if Vsys is not set vsys options are ignored
 	if o.Vsys != "" {
-		s = append(s, fmt.Sprintf("--vsys %s", o.Vsys))
+		s = append(s, fmt.Sprintf("--vsys=%s", o.Vsys))
 	} else {
 		return s
 	}
 	if o.OSType != "" {
 		s = append(s, fmt.Sprintf("--ostype=%s", o.OSType))
 	}
-	if o.Vmname != "" {
-		s = append(s, fmt.Sprintf("--vmname=%s", o.Vmname))
+	if o.VMname != "" {
+		s = append(s, fmt.Sprintf("--vmname=%s", o.VMname))
 	}
 	if o.Group != "" {
 		s = append(s, fmt.Sprintf("--group=%s", o.Group))
 	}
-	if o.Settingsfile != "" {
-		s = append(s, fmt.Sprintf("--settingsfile=%s", o.Settingsfile))
+	if o.SettingsFile != "" {
+		s = append(s, fmt.Sprintf("--settingsfile=%s", o.SettingsFile))
 	}
-	if o.Basefolder != "" {
-		s = append(s, fmt.Sprintf("--basefolder=%s", o.Basefolder))
+	if o.BaseFolder != "" {
+		s = append(s, fmt.Sprintf("--basefolder=%s", o.BaseFolder))
 	}
 	if o.CPUs != "" {
 		s = append(s, fmt.Sprintf("--cpus=%s", o.CPUs))
