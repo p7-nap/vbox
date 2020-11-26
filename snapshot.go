@@ -120,14 +120,3 @@ func (ss *SnapshotService) SnapshotShowVMInfo(vmname string, snapshotName string
 	return err
 }
 
-// type snapshotOperation string
-
-// const (
-// 	TakeSnapshotWithOptions    snapshotOperation = "take"
-// 	DeleteSnapshot             snapshotOperation = "delete"
-// 	RestoreFromSnapshot        snapshotOperation = "restore"
-// 	RestoreFromCurrentSnapshot snapshotOperation = "restorecurrent"
-// 	EditSnapshot               snapshotOperation = "edit"
-// 	ListSnapshots              snapshotOperation = "list"
-// 	ShowSnapshotInfo           snapshotOperation = "showvminfo"
-// )
