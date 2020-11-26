@@ -20,7 +20,7 @@ func TestStartOptions_slice(t *testing.T) {
 				Type: GUI,
 			},
 			out: []string{
-				"--type gui",
+				"--type=gui",
 			},
 		},
 		{
@@ -29,7 +29,7 @@ func TestStartOptions_slice(t *testing.T) {
 				Type: SDL,
 			},
 			out: []string{
-				"--type sdl",
+				"--type=sdl",
 			},
 		},
 		{
@@ -38,7 +38,7 @@ func TestStartOptions_slice(t *testing.T) {
 				Type: Headless,
 			},
 			out: []string{
-				"--type headless",
+				"--type=headless",
 			},
 		},
 		{
@@ -47,7 +47,7 @@ func TestStartOptions_slice(t *testing.T) {
 				Type: Seperate,
 			},
 			out: []string{
-				"--type separate",
+				"--type=separate",
 			},
 		},
 	}
