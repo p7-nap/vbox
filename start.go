@@ -11,7 +11,7 @@ func (vc *StartService) exec(args ...string) ([]byte, error) {
 }
 
 func (vc *StartService) StartVM(vmname string, options StartOptions) error {
-	args := []string{"startvm", "vmname"}
+	args := []string{"startvm", vmname}
 	args = append(args, options.slice()...)
 	_, err := vc.exec(args...)
 	return err
