@@ -11,58 +11,28 @@ func (ss *SnapshotService) exec(args ...string) ([]byte, error) {
 }
 
 //Snapshot makes snapshot related operations on <vmname> with given <options>,...
-func (ss *SnapshotService) Snapshot(vmname string, options SnapshotOptions) error {
+func (ss *SnapshotService) Snapshot(vmname string) error {
 	args := []string{"snapshot", vmname}
-	snapshotOptions := options.slice()
-	args = append(args, snapshotOptions...)
 	_, err := ss.exec(args...)
 	return err
 }
 
-type SnapshotOptions interface {
-	slice() []string
-}
-
-func (ss *SnapshotService) TakeSnapshot(vmname string, options SnapshotOptions) error {
-	opts := options.(SnapshotTakeOptions)
-	args := []string{"snapshot", vmname}
-	snapshotOptions := opts.slice()
-	args = append(args, snapshotOptions...)
+func (ss *SnapshotService) SnapshotTake(vmname string, snapshotName string, options SnapshotTakeOptions) error {
+	args := []string{"snapshot", vmname, "take", snapshotName}
+	Options := options.slice()
+	args = append(args, Options...)
 	_, err := ss.exec(args...)
 	return err
-}
-
-//SnapshotOptions is passed to snapshot as desired options
-type SnapshotgeneralOptions struct {
-	Operation   snapshotOperation
-	takeoptions *SnapshotTakeOptions
-	//edit options
-	NewName string
 }
 
 type SnapshotTakeOptions struct {
-	SnapshotName string
-	Description  string
-	Live         bool
-	Uniquename   string
+	Description string
+	Live        bool
+	Uniquename  string
 }
 
 func (o SnapshotTakeOptions) slice() []string {
 	var s []string
-	// if o.Operation != "" {
-	// 	s = append(s, fmt.Sprintf("%s", o.Operation))
-	// } else {
-	// 	return s
-	// }
-	// if o.Operation == "restorecurrent" {
-	// 	return s
-	// }
-	// if o.Operation == "list" {
-
-	// }
-	if o.SnapshotName != "" {
-		s = append(s, fmt.Sprintf("%s", o.SnapshotName))
-	}
 	if o.Description != "" {
 		s = append(s, fmt.Sprintf("--description=%s", o.Description))
 	}
@@ -75,14 +45,89 @@ func (o SnapshotTakeOptions) slice() []string {
 	return s
 }
 
-type snapshotOperation string
+func (ss *SnapshotService) SnapshotDelete(vmname string, snapshotName string) error {
+	args := []string{"snapshot", vmname, "delete", snapshotName}
+	_, err := ss.exec(args...)
+	return err
+}
+
+func (ss *SnapshotService) SnapshotRestore(vmname string, snapshotName string) error {
+	args := []string{"snapshot", vmname, "restore", snapshotName}
+	_, err := ss.exec(args...)
+	return err
+}
+
+func (ss *SnapshotService) SnapshotRestoreCurrent(vmname string, snapshotName string) error {
+	args := []string{"snapshot", vmname, "restore", snapshotName}
+	_, err := ss.exec(args...)
+	return err
+}
+
+func (ss *SnapshotService) SnapshotEdit(vmname string, snapshotName string, options SnapshotEditOptions) error {
+	args := []string{"snapshot", vmname, "edit", snapshotName}
+	Options := options.slice()
+	args = append(args, Options...)
+	_, err := ss.exec(args...)
+	return err
+}
+
+type SnapshotEditOptions struct {
+	Description string
+	NewName     string
+}
+
+func (o SnapshotEditOptions) slice() []string {
+	var s []string
+	if o.Description != "" {
+		s = append(s, fmt.Sprintf("--description=%s", o.Description))
+	}
+	if o.NewName != "" {
+		s = append(s, fmt.Sprintf("--name=%s", o.NewName))
+	}
+	return s
+}
+
+func (ss *SnapshotService) SnapshotList(vmname string, snapshotName string, options SnapshotListOptions) error {
+	args := []string{"snapshot", vmname, "list", snapshotName}
+	Options := options.slice()
+	args = append(args, Options...)
+	_, err := ss.exec(args...)
+	return err
+}
+
+type SnapshotListOptions struct {
+	ListMode Listmode
+}
+
+func (o SnapshotListOptions) slice() []string {
+	var s []string
+	if o.ListMode != "" {
+		s = append(s, fmt.Sprintf("--%s", o.ListMode))
+	}
+	return s
+}
+
+type Listmode string
 
 const (
-	TakeSnapshotWithOptions    snapshotOperation = "take"
-	DeleteSnapshot             snapshotOperation = "delete"
-	RestoreFromSnapshot        snapshotOperation = "restore"
-	RestoreFromCurrentSnapshot snapshotOperation = "restorecurrent"
-	EditSnapshot               snapshotOperation = "edit"
-	ListSnapshots              snapshotOperation = "list"
-	ShowSnapshotInfo           snapshotOperation = "showvminfo"
+	Details         Listmode = "details"
+	Machinereadable Listmode = "machinereadable"
 )
+
+func (ss *SnapshotService) SnapshotShowVMInfo(vmname string, snapshotName string) error {
+	args := []string{"snapshot", vmname, "showvminfo", snapshotName}
+	_, err := ss.exec(args...)
+	return err
+}
+
+// type snapshotOperation string
+
+// const (
+// 	TakeSnapshotWithOptions    snapshotOperation = "take"
+// 	DeleteSnapshot             snapshotOperation = "delete"
+// 	RestoreFromSnapshot        snapshotOperation = "restore"
+// 	RestoreFromCurrentSnapshot snapshotOperation = "restorecurrent"
+// 	EditSnapshot               snapshotOperation = "edit"
+// 	ListSnapshots              snapshotOperation = "list"
+// 	ShowSnapshotInfo           snapshotOperation = "showvminfo"
+// )
