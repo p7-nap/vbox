@@ -24,7 +24,7 @@ type StartOptions struct {
 func (o StartOptions) slice() []string {
 	var s []string
 	if o.Type != "" {
-		s = append(s, fmt.Sprintf("--type %s", o.Type))
+		s = append(s, fmt.Sprintf("--type=%s", o.Type))
 	}
 
 	return s
