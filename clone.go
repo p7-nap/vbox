@@ -27,7 +27,7 @@ type CloneOptions struct {
 	Mode       cloneMode
 	Name       string
 	//add options as []cloneOptions{cloneoption1, cloneoption2,..."
-	Options  []cloneOption
+	Options  []CloneOption
 	Register bool
 	Snapshot string
 	UUID     string
@@ -73,17 +73,17 @@ const (
 	All                cloneMode = "all"
 )
 
-type cloneOption string
+type CloneOption string
 
 const (
-	Link          cloneOption = "Link"
-	KeepAllMACs   cloneOption = "KeepAllMACs"
-	KeepNATMACs   cloneOption = "KeepNATMACs"
-	KeepDiskNames cloneOption = "KeepDiskNames"
-	KeepHwUUIDs   cloneOption = "KeepDiskNames"
+	Link          CloneOption = "Link"
+	KeepAllMACs   CloneOption = "KeepAllMACs"
+	KeepNATMACs   CloneOption = "KeepNATMACs"
+	KeepDiskNames CloneOption = "KeepDiskNames"
+	KeepHwUUIDs   CloneOption = "KeepDiskNames"
 )
 
-func join(options []cloneOption, separator string) string {
+func join(options []CloneOption, separator string) string {
 	optionstring := string(options[0])
 	for _, option := range options[1:] {
 		optionstring = fmt.Sprintf("%s%s%s", optionstring, separator, option)

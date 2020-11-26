@@ -20,7 +20,7 @@ func TestCloneOptions_slice(t *testing.T) {
 				Groups:     "group",
 				Mode:       Machine,
 				Name:       "newVM",
-				Options:    []cloneOption{Link, KeepAllMACs, KeepNATMACs, KeepDiskNames, KeepHwUUIDs},
+				Options:    []CloneOption{Link, KeepAllMACs, KeepNATMACs, KeepDiskNames, KeepHwUUIDs},
 				Register:   true,
 				Snapshot:   "vmSnap",
 				UUID:       "UUIDnew",
