@@ -46,28 +46,29 @@ func (v *ControlService) AcpiPowerButton(vmname string) error {
 	return err
 }
 
-func (v *ControlService) ControlVM(vmname string, options ControlOptions) error {
+// ChangeNIC changes the the NIC with the given number, however only one thing can be changed at a time
+func (v *ControlService) ChangeNIC(vmname string, nicNumber uint, nic Nic) error {
 	args := []string{"controlvm", vmname}
-	cloneOptions := options.slice()
-	args = append(args, cloneOptions...)
+	options := nic.slice(nicNumber)
+	args = append(args, options...)
 	_, err := v.exec(args...)
 	return err
+
 }
 
-type ControlOptions struct {
-	Nics []Nic
-}
-
-func (c ControlOptions) slice() []string {
+func (n Nic) slice(nicNumber uint) []string {
 	var s []string
-	for i, n := range c.Nics {
-		if n.Mode != "" {
-			s = append(s, fmt.Sprintf("nic%d", i+1), fmt.Sprintf("%s", n.Mode))
+	if n.PortForward == true {
+		for _, r := range n.ForwardRules {
+			s = append(s, fmt.Sprintf("--natpf%d=%s,%s,%s,%d,%s,%d", nicNumber, r.Name, r.Protocol, r.HostIP, r.HostPort, r.GuestIP, r.GuestPort))
 		}
-		if n.Mode == Bridged && n.Iface != "" {
-			s = append(s, fmt.Sprintf("%s", n.Iface))
-		}
+		return s
 	}
-
+	if n.Mode != "" {
+		s = append(s, fmt.Sprintf("nic%d", nicNumber), fmt.Sprintf("%s", n.Mode))
+	}
+	if n.Mode == Bridged && n.Iface != "" {
+		s = append(s, fmt.Sprintf("%s", n.Iface))
+	}
 	return s
 }
