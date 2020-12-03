@@ -21,7 +21,8 @@ func TestControlOptions_slice(t *testing.T) {
 					Nic{Mode: Bridged, Iface: "eth0"}},
 			},
 			out: []string{
-				"nic1 bridged",
+				"nic1",
+				"bridged",
 				"eth0",
 			},
 		},
@@ -33,9 +34,11 @@ func TestControlOptions_slice(t *testing.T) {
 					Nic{Mode: NAT, Iface: "eth0"}},
 			},
 			out: []string{
-				"nic1 bridged",
+				"nic1",
+				"bridged",
 				"eth0",
-				"nic2 nat",
+				"nic2",
+				"nat",
 			},
 		},
 		{
@@ -46,9 +49,11 @@ func TestControlOptions_slice(t *testing.T) {
 					Nic{Mode: NAT}},
 			},
 			out: []string{
-				"nic1 bridged",
+				"nic1",
+				"bridged",
 				"eth0",
-				"nic2 nat",
+				"nic2",
+				"nat",
 			},
 		},
 	}

@@ -62,7 +62,7 @@ func (c ControlOptions) slice() []string {
 	var s []string
 	for i, n := range c.Nics {
 		if n.Mode != "" {
-			s = append(s, fmt.Sprintf("nic%d %s", i+1, n.Mode))
+			s = append(s, fmt.Sprintf("nic%d", i+1), fmt.Sprintf("%s", n.Mode))
 		}
 		if n.Mode == Bridged && n.Iface != "" {
 			s = append(s, fmt.Sprintf("%s", n.Iface))
