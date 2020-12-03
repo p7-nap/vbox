@@ -62,18 +62,10 @@ func (c ControlOptions) slice() []string {
 	var s []string
 	for i, n := range c.Nics {
 		if n.Mode != "" {
-			s = append(s, fmt.Sprintf("--nic%d=%s", i+1, n.Mode))
+			s = append(s, fmt.Sprintf("nic%d %s", i+1, n.Mode))
 		}
 		if n.Mode == Bridged && n.Iface != "" {
-			s = append(s, fmt.Sprintf("--bridgeadapter%d=%s", i+1, n.Iface))
-		}
-		if n.Mode == Bridged && n.Promisc != "" {
-			s = append(s, fmt.Sprintf("--nicpromisc%d=%s", i+1, n.Promisc))
-		}
-		if n.Mode == NAT && n.PortForward == true {
-			for _, r := range n.ForwardRules {
-				s = append(s, fmt.Sprintf("--natpf%d=%s,%s,%s,%d,%s,%d", i+1, r.Name, r.Protocol, r.HostIP, r.HostPort, r.GuestIP, r.GuestPort))
-			}
+			s = append(s, fmt.Sprintf("%s", n.Iface))
 		}
 	}
 
