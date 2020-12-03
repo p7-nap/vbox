@@ -65,6 +65,11 @@ func (c ModifyOptions) slice() []string {
 		if n.Mode == Bridged && n.Promisc != "" {
 			s = append(s, fmt.Sprintf("--nicpromisc%d=%s", i+1, n.Promisc))
 		}
+		if n.Mode == NAT && n.PortForward == true {
+			for _, r := range n.ForwardRules {
+				s = append(s, fmt.Sprintf("--natpf%d=%s,%s,%s,%d,%s,%d", i+1, r.Name, r.Protocol, r.HostIP, r.HostPort, r.GuestIP, r.GuestPort))
+			}
+		}
 	}
 
 	return s
@@ -81,9 +86,11 @@ const (
 )
 
 type Nic struct {
-	Mode    nicMode
-	Iface   string
-	Promisc promiscMode
+	Mode         nicMode
+	Iface        string
+	Promisc      promiscMode
+	PortForward  bool
+	ForwardRules []ForwardRule
 }
 type nicMode string
 
@@ -100,4 +107,20 @@ const (
 	DENY     promiscMode = "deny"
 	AllowVM  promiscMode = "allow-vms"
 	AllowAll promiscMode = "allow-all"
+)
+
+type ForwardRule struct {
+	Name      string
+	Protocol  protocol
+	HostIP    string
+	HostPort  uint
+	GuestIP   string
+	GuestPort uint
+}
+
+type protocol string
+
+const (
+	TCP protocol = "tcp"
+	UDP protocol = "udp"
 )
