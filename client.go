@@ -14,6 +14,7 @@ type Client struct {
 	Storage  *StorageService
 	Start    *StartService
 	Clone    *CloneService
+	Control  *ControlService
 	Import   *ImportService
 	Snapshot *SnapshotService
 	execFunc ExecFunc
@@ -119,6 +120,11 @@ func New() *Client {
 		v: c,
 	}
 	c.Snapshot = snaps
+
+	control := &ControlService{
+		v: c,
+	}
+	c.Control = control
 
 	return c
 }
